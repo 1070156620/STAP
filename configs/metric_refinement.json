@@ -1,0 +1,13 @@
+{
+  "version": "source-recall-ap-refinement-v1",
+  "primary_budget": 0.2,
+  "tie_tolerance": 1e-12,
+  "selection_order": ["highest source-course macro Recall@20%", "highest source-course macro AP among recall ties", "simpler descriptor mode", "fewer source-fixed deviations", "stronger Ridge regularization", "larger margin", "full candidate pool"],
+  "lift_definition": "Compute precision / observed positive prevalence within each cohort, then average cohorts within courses and courses equally. The denominator is expected random-selection precision, not one realized random ranking.",
+  "tp_definition": "Sum true-positive enrollment-record counts within each seed; never infer counts from macro recall or sum repeated seeds as unique records.",
+  "ap_definition": "Average precision from continuous candidate scores within each cohort; undefined for no-positive cohorts, otherwise average cohorts within courses and courses equally. Not trapezoidal PR area or AP of binary masks.",
+  "cache_only": true,
+  "scope": "Exploratory source-only metric refinement on previously inspected populations, not independent external confirmation.",
+  "all_outcomes_retained": true,
+  "no_runtime_experiment": true
+}

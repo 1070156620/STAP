@@ -1,0 +1,24 @@
+{
+  "version": "nested-selector-optimization-v1",
+  "base_protocol": "configs/decision_principle.json",
+  "seeds": [20261028, 20261029, 20261030, 20261031, 20261032],
+  "budgets": [0.1, 0.2, 0.3],
+  "primary_budget": 0.2,
+  "margins": [0, 0.0025, 0.005, 0.0075, 0.01, 0.015, 0.02],
+  "alphas": [0.01, 0.1, 1, 10, 100],
+  "feature_modes": ["source_validation", "structural", "full"],
+  "pools": ["full", "core"],
+  "core_candidates": ["rule_inactivity", "rule_low_activity", "rule_low_recent_share", "lr_C1", "hgb_L15"],
+  "bootstrap": 2000,
+  "threads": 2,
+  "scope": "Exploratory method optimization on previously inspected course populations. Nested source-only tuning is not a fresh external validation.",
+  "selection_rule": "Maximize source middle-course macro recall at 20 percent capacity. Exact numerical ties (1e-12) prefer fewer deviations from source-fixed, then source-validation-only, structural, full; then stronger alpha, larger margin, full pool. Freeze every outer task before any target evaluation.",
+  "feature_definitions": {
+    "source_validation": "Candidate source-validation mean recall; no target descriptor and no utility regression. Alpha/margin do not apply; one distinct setting per pool.",
+    "structural": "Ridge utility prediction using the first four existing unlabeled descriptors: log target sample size, capacity, feature missingness, zero-click share.",
+    "full": "The four structural descriptors plus all six standardized behavioral mean shifts. Source utility labels train Ridge in both descriptor modes."
+  },
+  "no_target_based_shortlist": true,
+  "all_results_retained": true,
+  "no_runtime_experiment": true
+}

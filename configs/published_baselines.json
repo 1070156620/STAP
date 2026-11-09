@@ -1,0 +1,15 @@
+{
+  "version": "published-family-baselines-v1",
+  "datasets": ["oulad", "kdd2015"],
+  "seeds": [20261032, 20261028, 20261029, 20261030, 20261031],
+  "budgets": [0.1, 0.2, 0.3],
+  "primary_budget": 0.2,
+  "rf": {"n_estimators": 100, "min_samples_leaf": [1, 5, 20], "max_features": "sqrt"},
+  "linear_svm": {"C": [0.1, 1, 10], "max_iter": 20000},
+  "threads": 2,
+  "selection": "Maximum source-course macro Recall@20%; ties use source macro AP, then larger RF leaf / smaller SVM C.",
+  "scope": "Established model-family benchmarks under our common protocol; not an exact reproduction of another paper's dataset or reported scores.",
+  "reference": "https://doi.org/10.1007/s44163-023-00079-z",
+  "svm_variant": "LinearSVC decision scores, explicitly linear SVM rather than an unspecified kernel SVM.",
+  "all_results_retained": true
+}

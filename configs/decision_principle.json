@@ -1,0 +1,60 @@
+{
+  "protocol_version": "source-evidence-gate-v1",
+  "study_status": "Exploratory retrospective evaluation on previously inspected datasets; not independent confirmatory validation.",
+  "seeds": [20261028, 20261029, 20261030, 20261031, 20261032],
+  "budgets": [0.1, 0.2, 0.3],
+  "primary_budget": 0.2,
+  "primary_delta": 0.005,
+  "delta_grid": [0.0, 0.0025, 0.005, 0.01],
+  "source_lower_quantile": 0.1,
+  "source_bootstrap": 2000,
+  "report_bootstrap": 2000,
+  "minimum_source_validation_courses": 3,
+  "threads": 2,
+  "feature_mode": "behavior",
+  "base": {
+    "lr_C": [0.1, 1, 10],
+    "hgb_leaves": [7, 15, 31],
+    "hgb_iterations": 100,
+    "rule_blend_weights": [0.25, 0.75],
+    "selector_alphas": [1, 10, 100],
+    "gate_margin": 0.01,
+    "min_meta_courses": 3,
+    "min_train": 100,
+    "min_test": 30,
+    "max_inner_courses": 4,
+    "max_middle_courses": 3,
+    "source_course_counts": [8],
+    "learning_draws": 1
+  },
+  "datasets": {
+    "oulad": {
+      "processed": "data/processed/oulad_withdrawal_28.csv.gz",
+      "archived_primary": "outputs/quality_oulad_primary_20261028_164556",
+      "source_course_counts": [null],
+      "max_middle_courses": 4
+    },
+    "kdd2015": {
+      "processed": "data/processed/kdd2015_competition_dropout_14.csv.gz",
+      "archived_primary": "outputs/quality_kdd2015_primary_20261028_164729",
+      "source_course_counts": [8],
+      "max_middle_courses": 3
+    },
+    "mooccubex": {
+      "processed": "outputs/mooccubex_v3/mooccubex_video_inactivity_14d_14.csv.gz",
+      "archived_primary": "outputs/mooccubex_v3/primary",
+      "source_course_counts": [8],
+      "max_middle_courses": 3
+    }
+  },
+  "interpretation": {
+    "primary_comparison": "evidence_gate_delta_0p5pp minus source_fixed at 20 percent capacity; report every dataset and all three fixed comparators separately",
+    "threshold_origin": "0.5 percentage points is a fixed analysis scenario, not an elicited educational utility or an estimated optimum",
+    "gate": "Switch from source-selected rule to source-selected LR/HGB only if the empirical lower quantile of paired source-course cross-fitted gains strictly exceeds delta; otherwise use rule",
+    "uncertainty": "Source quantile is a heuristic with only 3-4 validation courses, not a calibrated confidence guarantee. Report intervals are conditional paired course bootstraps, without multiplicity adjustment.",
+    "all_outcomes_retained": true,
+    "no_intervention_effect_claim": true,
+    "no_runtime_experiment": true,
+    "primary_vs_sensitivity": "All new policies use joint three-capacity source tuning. Do not substitute their 20 percent points into the archived single-capacity primary tables."
+  }
+}

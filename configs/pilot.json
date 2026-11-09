@@ -1,0 +1,17 @@
+{
+  "cutoffs": [28],
+  "budgets": [0.2],
+  "regimes": ["course", "temporal"],
+  "feature_modes": ["behavior"],
+  "seed": 20261028,
+  "threads": 2,
+  "min_train": 80,
+  "min_test": 30,
+  "max_outer": 2,
+  "max_inner": 3,
+  "hgb_iterations": 50,
+  "bootstrap": 200,
+  "gate_margin": 0.01,
+  "save_models": false,
+  "comment": "Engineering pilot only: restricted folds and tuning-free models; not paper-ready evidence."
+}

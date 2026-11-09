@@ -1,0 +1,21 @@
+# Local data and generated artifacts
+/data/
+/outputs/
+/analysis/
+/.cache/
+/.venv/
+__pycache__/
+*.py[cod]
+*.log
+*.npz
+*.npy
+*.parquet
+*.csv
+*.csv.gz
+*.zip
+*.pdf
+*.vsdx
+*.vdx
+.env
+.env.*
+!.env.example

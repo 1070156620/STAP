@@ -1,0 +1,27 @@
+{
+  "seed": 20261028,
+  "threads": 2,
+  "budgets": [0.2],
+  "feature_modes": ["behavior"],
+  "lr_C": [0.1, 1, 10],
+  "hgb_leaves": [7, 15, 31],
+  "hgb_iterations": 100,
+  "rule_blend_weights": [0.25, 0.75],
+  "selector_alphas": [1, 10, 100],
+  "fixed_alpha": 10,
+  "gate_margin": 0.01,
+  "min_meta_courses": 3,
+  "min_train": 100,
+  "min_test": 30,
+  "max_outer": null,
+  "max_middle_courses": 4,
+  "max_inner_courses": 4,
+  "source_course_counts": [null],
+  "learning_draws": 1,
+  "bootstrap": 2000,
+  "datasets": {
+    "oulad": {"cutoffs": [28], "outcome": "withdrawal"},
+    "kdd2015": {"cutoffs": [14], "outcome": "competition_dropout", "source_course_counts": [8], "max_middle_courses": 3, "max_inner_courses": 4}
+  },
+  "note": "V2 OULAD is exploratory. KDD is separately retrained methodological replication, not pooled or frozen-model transfer. KDD uses a predeclared 8-source-course resource budget; all eligible targets are evaluated."
+}

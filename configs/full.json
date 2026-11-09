@@ -1,0 +1,17 @@
+{
+  "cutoffs": [14, 28, 42],
+  "budgets": [0.1, 0.2, 0.3],
+  "regimes": ["course", "temporal"],
+  "feature_modes": ["behavior", "activity_only"],
+  "seed": 20261028,
+  "threads": 2,
+  "min_train": 100,
+  "min_test": 30,
+  "max_outer": null,
+  "max_inner": null,
+  "hgb_iterations": 100,
+  "bootstrap": 2000,
+  "gate_margin": 0.01,
+  "save_models": false,
+  "comment": "Freeze before confirmatory test access. Reusing inspected test results is exploratory."
+}
