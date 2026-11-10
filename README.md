@@ -45,6 +45,50 @@ python selector_optimization.py --stage all --datasets oulad kdd2015
 
 The plan stage does not replace preparation or training. Dataset paths in configurations refer to locally generated inputs. No training was rerun during repository preparation.
 
+## Reproducing the manuscript workflow
+
+Run commands from the repository root after installation. The core OULAD and KDD2015 preparation commands above generate the processed files for their three observation windows. `selector_optimization.py --stage all --datasets oulad kdd2015` runs the standalone source-search workflow. The manuscript's final source-Recall/AP selection follows the replacement-suite and metric-refinement sequence below.
+
+The complete archived suite also includes the exploratory MOOCCubeX task. Prepare its inputs before invoking the full suite:
+
+```powershell
+python prepare_mooccubex.py --stage download
+python mooccubex_experiment.py --stage prepare
+```
+
+Then run the stages in dependency order:
+
+```powershell
+python selector_replacement_suite.py --stage plan
+python selector_replacement_suite.py --stage tune
+python selector_replacement_suite.py --stage evaluate
+python selector_replacement_suite.py --stage summarize
+
+python metric_refinement.py --stage plan
+python metric_refinement.py --stage select
+python metric_refinement.py --stage evaluate
+python metric_refinement.py --stage summarize
+
+python published_baselines.py --stage all
+python stap_mechanism_checks.py --stage audit
+python stap_course_stability.py --stage course
+python stap_course_stability.py --stage stability
+```
+
+The suite completes every source search before outer evaluation. Its `summarize` stage writes the completion marker required by metric refinement. The latter reuses `.cache/quality_scores/` and the suite records; retain both between stages. `--stage plan` checks the schedule and therefore also requires the preceding prepared inputs or suite manifest. These commands describe a full scientific rerun; they are not an installation smoke test.
+
+Main generated outputs are:
+
+| Output | Contents |
+|---|---|
+| `outputs/selector_replacement_suite_v1/` | Prepared protocols, source searches and outer evaluation records |
+| `outputs/metric_refinement_v1/analysis/` | Source-Recall/AP-selected absolute metrics, paired comparisons and parameter records |
+| `outputs/published_baselines_v1/analysis/` | RF and linear-SVM comparisons with the same target populations |
+| `outputs/stap_mechanism_v1/course_choices.csv` | Recorded ranking choices used by the course-level analysis |
+| `outputs/stap_course_stability_v1/` | Course comparisons, cross-seed list overlap and capacity-expansion retention |
+
+Keep the original dependency versions when checking archived hashes. Data, caches and generated outputs remain local and are excluded by `.gitignore`. The paper reports enrollment-record counts; independent student counts and delivered intervention effects are different quantities.
+
 ## Implementation map
 
 | File | Role |
@@ -67,4 +111,4 @@ The primary tasks are OULAD subsequent formal withdrawal and KDD2015 competition
 
 ## Repository scope
 
-Dataset files, prediction caches, logs, results, unit-test scripts, manuscript-editing helpers, LaTeX files and local virtual environments are intentionally excluded. Source modules are copied without changing their algorithmic implementation; `SOURCE_MANIFEST.json` records source hashes. No open-source license is assigned here: the author should choose a license before granting reuse permissions. The repository has not been uploaded to GitHub.
+Dataset files, prediction caches, logs, results, unit-test scripts, manuscript-editing helpers, LaTeX files and local virtual environments are intentionally excluded. Source modules are copied without changing their algorithmic implementation; `SOURCE_MANIFEST.json` records source hashes. No open-source license is assigned here: the author should choose a license before granting reuse permissions. The public repository is https://github.com/1070156620/STAP.
